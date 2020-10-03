@@ -1,52 +1,41 @@
 <?php
+define('TEMPLATES_DIR', './templates/');
+define('LAYOUTS_DIR', 'layouts/');
 
-//при рендере появляются артефакты в виде строки "1"
-
-//хотелось полностью автоматизировать процесс подключения файлов
-//и поэтому усложнил код доп скриптом не относящимся к домашке
-function dirToArray($path = '.') {
-  
-   $result = array();
-
-   $cdir = scandir($path);
-   foreach ($cdir as $key => $value)
-   {
-      if (!in_array($value,array(".","..")))
-      {
-         if (is_dir($path . DIRECTORY_SEPARATOR . $value))
-         {
-            $result[$value] = dirToArray($path . DIRECTORY_SEPARATOR . $value);
-         }
-         else
-         {
-            $result[] = $value;
-         }
-      }
-   }
-  
-   return $result;
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 'index';
 }
 
-function renderTemplates($entryPoint){
-	$templates = dirToArray($entryPoint);
-	$content = '';
+echo render($page, $params);
 
-	foreach ($templates as $key => $value) {
-		$content = include("$entryPoint/$value");
-	}
-	return $content;
-	
+function render($page, $params = [])
+{
+    return renderTemplate(LAYOUTS_DIR . 'main', [
+            'content' => renderTemplate($page, $params),
+            'menu' => renderTemplate('menu')
+        ]
+    );
 }
 
-// function renderTemplatesRecursive($pageName, $content = ''){
-// 	ob_start();
-// 	$filename = 'templates/' . $pageName . '.php';
-// 	if(file_exists($filename)){
-// 		include($filename);
-// 	}
-// 	return ob_get_clean();
-// }
+function renderTemplate($page, $params = [])
+{
+    ob_start();
+
+    if (!is_null($params))
+        extract($params);
+
+    $fileName = TEMPLATES_DIR . $page . ".php";
+
+    if (file_exists($fileName)) {
+        include $fileName;
+    } else {
+        Die("Такой страницы не существует. 404");
+    }
+
+    return ob_get_clean();
+}
 
 
-renderTemplates('templates');
 ?>
