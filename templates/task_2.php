@@ -7,10 +7,9 @@
 		do {
 			if ($i == 0) {
 				echo "{$i} - это ноль" . '<br>';
-			}
-			if($i & 1){
+			} else if($i & 1) {
 				echo "{$i} - не чётное<br>";
-			}elseif($i != 0) {
+			} else {
 				echo "{$i} - чётное<br>";
 			}
 			$i++;

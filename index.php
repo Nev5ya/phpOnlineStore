@@ -8,7 +8,7 @@ if (isset($_GET['page'])) {
     $page = 'index';
 }
 
-echo render($page, $params);
+echo render($page);
 
 function render($page, $params = [])
 {

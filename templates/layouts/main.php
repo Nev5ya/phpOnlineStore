@@ -42,10 +42,11 @@
 				cursor: pointer;
 			}
 			.nav-link {
+				font-size: 15px;
 				text-transform: uppercase;
 				text-decoration: none;
 				padding: 8px 10px;
-				width: 120px;
+				width: 150px;
 				margin: 2%;
 				text-align: center;
 				background-color: #4c4848b8;
