@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Главная</title>
+	<title>Homework 3</title>
 	<link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
@@ -10,7 +10,7 @@
 		<?= $menu ?>
 	</header>
 	<div class="container">
-		<h1>PHP Курс 1</h1>
+		<h1>Домашняя работа №3</h1>
 		<?= $content ?>
 	</div>
 </body>
