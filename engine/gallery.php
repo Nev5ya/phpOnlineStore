@@ -1,6 +1,14 @@
 <?php
 function getGallery($path){
-	return $images = array_splice(scandir($path), 2);
+	return getAssocResult("SELECT * FROM `images_info` ORDER BY views DESC");
+}
+
+function getOneImage($id){
+	return getAssocResult("SELECT * FROM `images_info` WHERE id = {$id}")[0];
+}
+
+function addLikes($id){
+	executeQuery("UPDATE `images_info` SET views = views + 1 WHERE id = {$id}");
 }
 
 function uploadImage(){
@@ -28,12 +36,15 @@ function uploadImage(){
 	}
 
 	if (move_uploaded_file($_FILES['image']['tmp_name'], $path_big)) {
-		
+
+		$filename = mysqli_real_escape_string(getDb(), $_FILES['image']['name']);
+		executeQuery("INSERT INTO `images_info` (`filename`) VALUES ('{$filename}')");
+
 		$image = new SimpleImage();
 		$image->load($path_big);
 		$image->resizeToWidth(250);
 		$image->save($path_small);
-		header("Location: /?page=gallery");
+		header("Location: /gallery");
 	} else {
 		echo "Ошибка ресайза файла<br>";
 	}

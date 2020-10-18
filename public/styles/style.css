@@ -126,7 +126,25 @@ p {
 	border: 1px solid black;
 }
 
+.gallery_img-text_wrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.gallery_img-text_block {
+	text-decoration: none;
+	color: black;
+	font-weight: 300;
+}
+
+.gallery_img-big_img {
+	border: 1px solid black;
+	border-radius: 2%;
+	margin-bottom: 50px;
+}
+
 .gallery_block {
+	cursor: pointer;
 	width: 250px;
 	margin-bottom: 15px;
 	-webkit-transition: -webkit-transform 0.7s;
@@ -136,6 +154,16 @@ p {
 .gallery_block:hover {
 	-webkit-transform: scale(1.1);
 	transform: scale(1.1);
+}
+
+.image-views_invisible {
+	display: none;
+}
+
+.image-views {
+	position: relative;
+	top: -45px;
+	left: 110px
 }
 
 .modal {

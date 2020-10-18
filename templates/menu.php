@@ -8,7 +8,7 @@ $menuList = [
 	],
 	[
 		'title' => 'Дз 3',
-		'href' => '?page=homework_3',
+		'href' => '/homework_3',
 		'style' => 'nav-li',
 		'hover' => 'hover',
 		'styleLink' => 'nav-link',
@@ -16,25 +16,25 @@ $menuList = [
 		'subMenu' => [
 			[
 				'title' => 'Задание 1',
-				'href' => '?page=task_1',
+				'href' => '/task_1',
 				'style' => 'nav-li',
 				'styleLink' => 'nav-link'
 			],
 			[
 				'title' => 'Задание 2',
-				'href' => '?page=task_2',
+				'href' => '/task_2',
 				'style' => 'nav-li',
 				'styleLink' => 'nav-link'
 			],
 			[
 				'title' => 'Задание 3 и 8',
-				'href' => '?page=task_3_8',
+				'href' => '/task_3_8',
 				'style' => 'nav-li',
 				'styleLink' => 'nav-link'
 			],
 			[
 				'title' => 'Задание 4, 5 и 9',
-				'href' => '?page=task_4_5_9',
+				'href' => '/task_4_5_9',
 				'style' => 'nav-li',
 				'styleLink' => 'nav-link'
 			],
@@ -42,7 +42,7 @@ $menuList = [
 	],
 	[
 		'title' => 'Галерея',
-		'href' => '?page=gallery',
+		'href' => '/gallery',
 		'style' => 'nav-li',
 		'styleLink' => 'nav-link'
 	]
