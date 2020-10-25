@@ -1,5 +1,5 @@
 <?php
-function getGallery($path){
+function getGallery(){
 	return getAssocResult("SELECT * FROM `images_info` ORDER BY views DESC");
 }
 
@@ -18,20 +18,17 @@ function uploadImage(){
 	$image_info = getimagesize($_FILES['image']['tmp_name']);
 
 	if ($image_info['mime'] != 'image/png' && $image_info['mime'] != 'image/gif' && $image_info['mime'] != 'image/jpeg') {
-		echo "Можно загружать только jpg/png/gif/jpeg - файлы<br>";
-		exit;
+		return "Можно загружать только jpg/png/gif/jpeg - файлы";
 	}
 
 	if ($_FILES['image']['size'] > 1024 * 5 * 1024) {
-		echo "Размер файла не более 5 Мб<br>";
-		exit;
+		return "Размер файла не более 5 Мб";
 	}
 
 	$blacklist = ['.php', '.phtml', '.php3', '.php4'];
 	foreach ($blacklist as $item) {
 		if(preg_match("/$item\$/i", $_FILES['image']['name'])){
-			echo "Загрузка php-файлов запрещена<br>";
-			exit;
+			return "Загрузка php-файлов запрещена";
 		}
 	}
 
@@ -46,6 +43,6 @@ function uploadImage(){
 		$image->save($path_small);
 		header("Location: /gallery");
 	} else {
-		echo "Ошибка ресайза файла<br>";
+		return "Ошибка ресайза файла";
 	}
 }

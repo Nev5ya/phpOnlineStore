@@ -253,3 +253,8 @@ input[type="file"] {
 	background-color: #212121;
 	cursor: pointer;
 }
+
+.error {
+	margin-bottom: 10px;
+	color: red;
+}

@@ -48,7 +48,7 @@ $menuList = [
 	]
 ];
 
-function renderMenu($menuList, $params = []) {
+function renderMenu($menuList, $params) {
 	$res = "<ul class='nav-ul {$params['subHidden']}'>";
 
 	foreach ($menuList as $listItem) {
@@ -65,5 +65,5 @@ function renderMenu($menuList, $params = []) {
 	return $res;
 }
 
-echo renderMenu($menuList)
+echo renderMenu($menuList, $params)
 ?>

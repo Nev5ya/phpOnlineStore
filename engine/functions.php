@@ -17,11 +17,11 @@ function prepareVariables($page){
         case 'gallery':
         
             if(isset($_POST['load'])){
-                uploadImage();
+                $params['errors'] = uploadImage();
             }
 
             $params['layout'] = 'gallery';
-            $params['gallery'] = getGallery(IMG_BIG);
+            $params['gallery'] = getGallery();
             break;
         case 'homework_3':
             $params['layout'] = 'homework_3';
@@ -33,7 +33,7 @@ function prepareVariables($page){
 function render($page, $params){
     return renderTemplate(LAYOUTS_DIR . $params['layout'], [
             'content' => renderTemplate($page, $params),
-            'menu' => renderTemplate('menu'),
+            'menu' => renderTemplate('menu', $params),
         ]
     );
 }
