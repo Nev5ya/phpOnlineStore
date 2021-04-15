@@ -1,17 +1,17 @@
 <?php
-function getGallery(){
-	return getAssocResult("SELECT * FROM `images_info` ORDER BY views DESC");
+function getCatalog():array{
+	return getAssocResult("SELECT * FROM `catalog` ORDER BY views DESC");
 }
 
 function getOneImage($id){
-	return getAssocResult("SELECT * FROM `images_info` WHERE id = {$id}")[0];
+	return getAssocResult("SELECT * FROM `catalog` WHERE id = {$id}")[0];
 }
 
 function addLikes($id){
-	executeQuery("UPDATE `images_info` SET views = views + 1 WHERE id = {$id}");
+	executeQuery("UPDATE `catalog` SET views = views + 1 WHERE id = {$id}");
 }
 
-function uploadImage(){
+function uploadImage():string{
 	$path_big = IMG_BIG . $_FILES['image']['name'];
 	$path_small = IMG_SMALL . $_FILES['image']['name'];
 
@@ -35,13 +35,13 @@ function uploadImage(){
 	if (move_uploaded_file($_FILES['image']['tmp_name'], $path_big)) {
 
 		$filename = mysqli_real_escape_string(getDb(), $_FILES['image']['name']);
-		executeQuery("INSERT INTO `images_info` (`filename`) VALUES ('{$filename}')");
+		executeQuery("INSERT INTO `catalog` (`filename`) VALUES ('{$filename}')");
 
 		$image = new SimpleImage();
 		$image->load($path_big);
 		$image->resizeToWidth(250);
 		$image->save($path_small);
-		header("Location: /gallery");
+		header("Location: /catalog");
 	} else {
 		return "Ошибка ресайза файла";
 	}

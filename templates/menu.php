@@ -41,11 +41,23 @@ $menuList = [
 		]
 	],
 	[
-		'title' => 'Галерея',
-		'href' => '/gallery',
+		'title' => 'Каталог',
+		'href' => '/catalog',
 		'style' => 'nav-li',
 		'styleLink' => 'nav-link'
-	]
+	],
+	[
+		'title' => 'Калькулятор',
+		'href' => '/calculator',
+		'style' => 'nav-li',
+		'styleLink' => 'nav-link'
+	],
+    [
+        'title' => 'Отзывы',
+        'href' => '/feedback',
+        'style' => 'nav-li',
+        'styleLink' => 'nav-link'
+    ]
 ];
 
 function renderMenu($menuList, $params) {
@@ -65,5 +77,4 @@ function renderMenu($menuList, $params) {
 	return $res;
 }
 
-echo renderMenu($menuList, $params)
-?>
+echo renderMenu($menuList, $params);

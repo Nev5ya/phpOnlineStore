@@ -9,10 +9,12 @@ define('LAYOUTS_DIR', 'layouts/');
 define('HOST', 'localhost');
 define('USER', 'root');
 define('PASS', 'root');
-define('DB', 'images');
+define('DB', 'php1');
 
 include ROOT . "/engine/db.php";
 include ROOT . "/engine/functions.php";
 include ROOT . "/engine/log.php";
-include ROOT . "/engine/gallery.php";
+include ROOT . "/engine/catalog.php";
+include ROOT . "/engine/calculator.php";
 include ROOT . "/engine/classSimpleImage.php";
+include ROOT . "/engine/feedback.php";

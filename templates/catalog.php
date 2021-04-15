@@ -1,5 +1,6 @@
+<h1>Каталог</h1>
 <div class="gallery_wrapper">
-	<?php foreach ($gallery as $item): ?> 
+	<?php foreach ($catalog as $item): ?>
 		<div class="gallery_block">
 			<img class="gallery_img modal" src="images/gallery_img/big/<?= $item['filename'] ?>" alt="photo">
 			<div class="gallery_img-text_wrapper">

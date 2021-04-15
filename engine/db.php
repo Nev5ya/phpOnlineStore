@@ -9,7 +9,7 @@ function getDb(){
 	return $db;
 }
 
-function getAssocResult($sql){
+function getAssocResult($sql):array{
 	$result = @mysqli_query(getDb(), $sql) or die(mysqli_error(getDb()));
 	$array_result = [];
 	while ($row = mysqli_fetch_assoc($result)) {
@@ -19,8 +19,7 @@ function getAssocResult($sql){
 	return $array_result;
 }
 
-
-//update and delete
-function executeQuery($sql){
-	return @mysqli_query(getDb(), $sql) or die(mysqli_error(getDb()));
+function executeQuery($sql):bool{
+	@mysqli_query(getDb(), $sql) or die(mysqli_error(getDb()));
+	return !(mysqli_affected_rows(getDb()) === 0);
 }

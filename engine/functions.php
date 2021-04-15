@@ -1,28 +1,43 @@
 <?php
 
-function prepareVariables($page){
+function prepareVariables($page, $action):array{
     $params['layout'] = 'main';
     switch ($page) {
 
         case 'image':
-            $params['layout'] = 'gallery';
+            $params['layout'] = 'catalog';
             $params['image'] = getOneImage((int)$_GET['id']);
             break;
 
         case 'addLike':
-            $params['layout'] = 'gallery';
+            $params['layout'] = 'catalog';
             addLikes((int)$_GET['id']);
             break;
 
-        case 'gallery':
-        
+        case 'catalog':
             if(isset($_POST['load'])){
                 $params['errors'] = uploadImage();
             }
-
-            $params['layout'] = 'gallery';
-            $params['gallery'] = getGallery();
+            $params['layout'] = 'catalog';
+            $params['catalog'] = getCatalog();
             break;
+
+        case 'feedback':
+            $params['layout'] = 'feedback';
+            $params['feedback'] = getAllFeedback();
+            break;
+
+        case 'feedbackapi':
+            feedbackAction($action);
+            break;
+
+        case 'calculator':
+            if (!empty($_POST['output'])) {
+                $params['output'] = parseOperations($_POST['output']);
+            }
+            $params['layout'] = 'calculator';
+            break;
+
         case 'homework_3':
             $params['layout'] = 'homework_3';
             break;

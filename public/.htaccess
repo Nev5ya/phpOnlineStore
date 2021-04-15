@@ -3,4 +3,8 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+php_value error_reporting "E_ALL & ~E_NOTICE"
+
+php_value display_errors on
+
 RewriteRule . index.php
