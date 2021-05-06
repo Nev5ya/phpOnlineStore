@@ -3,3 +3,6 @@
 **/.vs/
 **/dist/
 **/.idea
+**/.sublime-project
+**/.sublime-workspace
+**/_log
