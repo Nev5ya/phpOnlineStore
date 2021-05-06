@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include $_SERVER['DOCUMENT_ROOT'] . "/../config/config.php";
 $url_array = explode('/', $_SERVER['REQUEST_URI']);
 

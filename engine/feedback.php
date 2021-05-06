@@ -1,16 +1,14 @@
 <?php
 
-function getAllFeedback():array{
-    $sql = "SELECT * FROM `feedback` ORDER BY id";
-    return getAssocResult($sql);
+function getAllFeedback($product_id = 0):array{
+    return getAssocResult("SELECT * FROM `feedback` WHERE product_id = $product_id ORDER BY id");
 }
 
-function feedbackAction($action = '') {
+function feedbackAction($action) {
+    $data = readFeedback();
     switch ($action) {
         case 'create':
-            $data = readFeedback();
-            $id = createFeedback($data->name, $data->feedback);
-
+            $id = createFeedback($data->name, $data->feedback, $data->good_ID);
             $response = [
                 'id' => $id,
                 'name' => $data->name,
@@ -25,13 +23,11 @@ function feedbackAction($action = '') {
             break;
 
         case 'update':
-            $data = readFeedback();
             $response = updateFeedback($data);
             echo json_encode(['updated' => $response]);
             break;
 
         case 'delete':
-            $data = json_decode(file_get_contents('php://input'));
             $response = deleteFeedback($data);
             echo json_encode(['deleted' => $response]);
             break;
@@ -39,10 +35,10 @@ function feedbackAction($action = '') {
     die();
 }
 
-function createFeedback($name, $feedback) {
+function createFeedback($name, $feedback, $product_id) {
     $name = strip_tags(htmlspecialchars(mysqli_real_escape_string(getDb(), $name)));
     $feedback = strip_tags(htmlspecialchars(mysqli_real_escape_string(getDb(), $feedback)));
-    $sql = "INSERT INTO `feedback` (`name`, `feedback`) VALUES ('{$name}', '{$feedback}');";
+    $sql = "INSERT INTO `feedback` (`name`, `feedback`, `product_id`) VALUES ('{$name}', '{$feedback}', '{$product_id}');";
     executeQuery($sql);
     return mysqli_insert_id(getDb());
 }

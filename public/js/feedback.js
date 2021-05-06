@@ -1,6 +1,8 @@
 'use strict';
 const actionButtons = document.querySelector('.feedback-wrapper');
 const feedbackNode = document.querySelector('.feedback-side');
+const fieldList = ["name", "feedback", "id", "good_id"];
+const feedbackID = getFeedbackID();
 
 actionButtons.addEventListener('click', (e) => handleButtonsCRUD(e));
 
@@ -32,7 +34,7 @@ async function handleButtonsCRUD(e) {
 
 //CRUD BLOCK
 function create(buttonNode, action){
-    const data = readValueData(buttonNode);
+    const data = readValueData(buttonNode, fieldList);
 
     fetchData(data, action)
         .then(response => response.json())
@@ -50,7 +52,7 @@ function read(buttonNode, action) {
 }
 
 function update(node, action) {
-    const data = readValueData(node);
+    const data = readValueData(node, fieldList);
     fetchData(data, action)
         .then(response => response.json())
         .then(json => {
@@ -76,14 +78,13 @@ function remove(buttonNode, action) {
 
 //OTHER FUNCTIONS
 function validateValueData(node){
-    for (const [, value] of Object.entries(readValueData(node))) {
-        if (!value) return false;
+    for (const [, value] of Object.entries(readValueData(node, fieldList))) {
+        if (typeof(value) == "undefined" && value == null) return false;
     }
     return true;
 }
 
-function readValueData(buttonNode) {
-    const fieldList = ["name", "feedback", "id"];
+function readValueData(buttonNode, fieldList) {
     const data = {};
     let inputValues = getInputValues(buttonNode);
     const fieldValues = [...inputValues].map((item) => item.value);
@@ -91,6 +92,7 @@ function readValueData(buttonNode) {
     for (let i = 0; i < fieldValues.length - 1; i++) {
         data[fieldList[i]] = `${fieldValues[i]}`;
     }
+    data['good_ID'] = feedbackID;
     return data;
 }
 
@@ -122,7 +124,7 @@ function renderFeedbackToUpdate(feedback){
     let html = `
         <div class="feedback">
             <input required class="feedback__input" type="text" placeholder="Введите имя" value="${feedback.name}">
-            <textarea required class="feedback__input" placeholder="Ваш отзыв">${feedback.feedback}</textarea>
+            <textarea required class="feedback__input feedback__input_textarea" placeholder="Ваш отзыв">${feedback.feedback}</textarea>
             <input id="id" hidden value="${feedback.id}">
             <button class="feedback__button" type="button" id="update">Править</button>
         </div>
@@ -164,4 +166,19 @@ function toggleSideVisibility() {
     } else {
         feedbackNode.classList.add('feedback-side_display');
     }
+}
+
+function isPersonalFeedback(href) {
+    return href.includes('good');
+}
+
+function getFeedbackID() {
+    const href = document.location.href.split('/');
+    if (isPersonalFeedback(href)) {
+        const idStr = href.find(i => {
+            return i.match(/\d/);
+        });
+        return Number(idStr[idStr.length - 1]);
+    }
+    return 0;
 }

@@ -1,4 +1,13 @@
 <?php
+$authMenu = [
+    [
+        'title' => 'Выход',
+        'href' => '/?logout',
+        'style' => 'nav-li',
+        'styleLink' => 'nav-link'
+    ]
+];
+
 $menuList = [
 	[
 		'title' => 'Главная',
@@ -41,11 +50,17 @@ $menuList = [
 		]
 	],
 	[
-		'title' => 'Каталог',
-		'href' => '/catalog',
+		'title' => 'Галерея',
+		'href' => '/gallery',
 		'style' => 'nav-li',
 		'styleLink' => 'nav-link'
 	],
+    [
+        'title' => 'Каталог',
+        'href' => '/catalog',
+        'style' => 'nav-li',
+        'styleLink' => 'nav-link'
+    ],
 	[
 		'title' => 'Калькулятор',
 		'href' => '/calculator',
@@ -57,10 +72,25 @@ $menuList = [
         'href' => '/feedback',
         'style' => 'nav-li',
         'styleLink' => 'nav-link'
+    ],
+    [
+        'title' => 'Корзина<span id="count"> [ ' . $count . ' ]</span>',
+        'href' => '/cart',
+        'style' => 'nav-li',
+        'styleLink' => 'nav-link',
+    ],
+    [
+        'title' => $params['auth']? 'Кабинет' : 'Вход',
+        'href' => '/auth',
+        'style' => 'nav-li',
+        'hover' => 'hover',
+        'subHidden' => 'ul-hidden',
+        'styleLink' => 'nav-link',
+        'subMenu' => $params['auth']?$authMenu : ''
     ]
 ];
 
-function renderMenu($menuList, $params) {
+function renderMenu($menuList, $params):string {
 	$res = "<ul class='nav-ul {$params['subHidden']}'>";
 
 	foreach ($menuList as $listItem) {

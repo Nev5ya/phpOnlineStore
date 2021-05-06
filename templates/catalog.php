@@ -1,24 +1,13 @@
 <h1>Каталог</h1>
-<div class="gallery_wrapper">
-	<?php foreach ($catalog as $item): ?>
-		<div class="gallery_block">
-			<img class="gallery_img modal" src="images/gallery_img/big/<?= $item['filename'] ?>" alt="photo">
-			<div class="gallery_img-text_wrapper">
-				<a href="/image/?id=<?= $item['id'] ?>" class="gallery_img-full_view gallery_img-text_block">Полный размер</a>
-				<a href="/addLike/?id=<?= $item['id'] ?>" class="gallery_img-vote gallery_img-text_block">Голосовать</a>
-			</div>
-			<span class="image-views"><?= $item['views'] ?></span>
-		</div>
-	<? endforeach; ?>
+<div class="catalog">
+<?php foreach ($catalog as $value): ?>
+    <div class="catalog__item_small catalog__item_hover" id="<?=$value['id']?>">
+        <a href="/good/?id=<?=$value['id']?>" class="catalog__item-link">
+            <img class="catalog__item-image" src="images/catalog_img/small/<?= $value['image'] ?>.jpg" alt="catalog-item">
+        </a>
+        <p class="catalog__item-text"><?= $value['name'] ?></p>
+        <p class="catalog__item-text">Цена:&nbsp;<?= $value['price'] ?> ₽</p>
+        <button class="catalog__item-button feedback__button" data-id="buy">Купить</button>
+    </div>
+<?php endforeach; ?>
 </div>
-<p class="error"><?= $errors ?></p>
-<form method="POST" enctype="multipart/form-data" class="upload_image">
-	<div class="form-group">
-	  <label class="label">
-	    <i class="material-icons">attach_file</i>
-	    <span class="title">Загрузить изображение</span>
-	    <input type="file" name="image" />
-	  </label>
-	</div>
-	<input type="submit" name="load" value="Загрузить" class="submit_button">
-</form>

@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * Функция, осуществляющая соединение с базой данных и возвращающее его
+ * static позволяет сохранить состояние и вернуть уже текущее соединение
+ * чтобы не делать нового
+ */
 function getDb(){
 	static $db = null;
 
@@ -9,6 +14,11 @@ function getDb(){
 	return $db;
 }
 
+/*
+ * Обертка для выполнения запроса на получение данных
+ * Данные возвращаются в виде ассоциативного массива
+ * Цикл по получению данных уже реализован в этой функции
+ */
 function getAssocResult($sql):array{
 	$result = @mysqli_query(getDb(), $sql) or die(mysqli_error(getDb()));
 	$array_result = [];
@@ -19,6 +29,12 @@ function getAssocResult($sql):array{
 	return $array_result;
 }
 
+/*
+ * Обертка для выполнения любого запроса.
+ * Передаем в параметре текст sql-запроса.
+ * Возвращаем результат,
+ * в виде логического значения (выполнился/не выполнился) запрос.
+ */
 function executeQuery($sql):bool{
 	@mysqli_query(getDb(), $sql) or die(mysqli_error(getDb()));
 	return !(mysqli_affected_rows(getDb()) === 0);

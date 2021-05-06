@@ -2,7 +2,7 @@
 <div class="feedback-wrapper">
     <div class="feedback">
         <input required class="feedback__input" type="text" placeholder="Введите имя" value="">
-        <textarea required class="feedback__input" placeholder="Ваш отзыв"></textarea>
+        <textarea required class="feedback__input feedback__input_textarea" placeholder="Ваш отзыв"></textarea>
         <button class="feedback__button" type="button" id="create">Отправить</button>
     </div>
     <div class="feedback-side <?php if (empty($feedback)) echo 'feedback-side_display'; ?>">
@@ -18,3 +18,4 @@
         <?php endforeach; ?>
     </div>
 </div>
+<script defer type="text/javascript" src="../js/feedback.js"></script>
