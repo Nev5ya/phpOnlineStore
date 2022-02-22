@@ -16,10 +16,39 @@ function prepareVariables($page, $action):array{
 
         case 'auth':
             $params['layout'] = 'auth';
+            if (isAdmin()) {
+                $params['orders'] = getAllOrders();
+            } else {
+                if (isset($params['user'])) {
+                    $params['orders'] = getOrdersByLogin($params['user']);
+                }
+            }
             break;
 
-        case 'serviceapi':
-            serviceAction($action);
+//todo [order-details]
+
+//        case 'orderDetails':
+//            $orderID = (INT)$_GET['id'];
+//            $params['orderDetails'] = getOrderDetails($orderID, $params['user']);
+//            break;
+
+        case 'updateOrder':
+            $id = (INT)$_GET['id'];
+            if (isAdmin()) {
+                $params['order'] = getOneOrder($id);
+            }
+            if (!empty($_POST) && isAdmin()) {
+                $params['updated'] = updateOrderInfo($_POST);
+            }
+            break;
+
+        case 'signUp':
+            if (!empty($_POST)) {
+                $params['error'] = validateData($_POST);
+                if (!$params['error']) {
+                    $params['signUp'] = signUp($_POST);
+                }
+            }
             break;
 
         case 'catalog':
@@ -38,10 +67,13 @@ function prepareVariables($page, $action):array{
             $params['layout'] = 'catalog';
             $params['cart'] = getCart($params['session_id']);
             $params['total'] = getTotalPrice($params['cart']);
+            if (isset($params['user'])) {
+                $params['user_info'] = getAuthorizedUserInfo($params['user']);
+            }
             break;
 
         case 'cartapi':
-            cartAction($action, $params['session_id']);
+            cartAction($action, $params['session_id'], $params['user']);
             break;
 
         case 'image':

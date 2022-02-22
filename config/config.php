@@ -1,16 +1,18 @@
 <?php
-define('ROOT', dirname(__DIR__));
+/* Define the main system constants */
+define("ROOT", dirname(__DIR__));
 define('IMG_BIG', $_SERVER['DOCUMENT_ROOT'] . '/images/gallery_img/big/');
 define('IMG_SMALL', $_SERVER['DOCUMENT_ROOT'] . '/images/gallery_img/small/');
-define('TEMPLATES_DIR', ROOT . '/templates/');
-define('LAYOUTS_DIR', 'layouts/');
+const TEMPLATES_DIR = ROOT . '/templates/';
+const LAYOUTS_DIR = 'layouts/';
 
 /* DB config */
-define('HOST', 'localhost');
-define('USER', 'root');
-define('PASS', 'root');
-define('DB', 'php1');
+const HOST = 'localhost';
+const USER = 'root';
+const PASS = 'root';
+const DB = 'php1';
 
+/* Including engine libraries*/
 include ROOT . "/engine/db.php";
 include ROOT . "/engine/functions.php";
 include ROOT . "/engine/log.php";

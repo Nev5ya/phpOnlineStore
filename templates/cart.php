@@ -27,9 +27,9 @@
             <p class="checkout-info__text"><b>Итого к оплате:</b> <i class="total"><?= $total ?> </i>₽</p>
         </div>
         <div class="checkout-buttons_wrapper">
-            <input type="text" class="feedback__input checkout__input" placeholder="Ф.И.О" required>
-            <input type="text" class="feedback__input checkout__input" placeholder="7(999)-99-99" required>
-            <input type="email" class="feedback__input checkout__input" placeholder="E-mail" required>
+            <input type="text" class="feedback__input checkout__input" placeholder="Ф.И.О" value="<?php if (isset($params['user_info'])) echo $params['user_info']['full_name']; ?>" required>
+            <input type="text" class="feedback__input checkout__input" placeholder="7(999)-99-99" required value="<?php if (isset($params['user_info'])) echo $params['user_info']['phone']; ?>">
+            <input type="email" class="feedback__input checkout__input" placeholder="E-mail" required value="<?php if (isset($params['user_info'])) echo $params['user_info']['email']; ?>">
             <input class="feedback__button checkout__button" type="submit" data-id="checkout" value="Оформить заказ">
         </div>
     </form>

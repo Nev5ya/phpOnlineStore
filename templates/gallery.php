@@ -11,7 +11,7 @@
 		</div>
 	<? endforeach; ?>
 </div>
-<?php if ($params['auth']): ?>
+<?php if (isAdmin()): ?>
 <p class="error"><?= $errors ?></p>
 <form method="POST" enctype="multipart/form-data" class="upload_image">
 	<div class="form-group">

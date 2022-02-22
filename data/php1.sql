@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 07 2021 г., 02:24
+-- Время создания: Июн 13 2021 г., 02:03
 -- Версия сервера: 8.0.19
--- Версия PHP: 7.1.33
+-- Версия PHP: 7.4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,11 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `good_id`, `session_id`, `cart_status`) VALUES
-(271, 7, 'll88mrnljkgpgnsq1ee1cejtg8rb5jv1', 1);
+(304, 6, '520der7t6kjs9jvt13v3grmj69s7ql91', 1),
+(305, 7, '520der7t6kjs9jvt13v3grmj69s7ql91', 1),
+(306, 1, 'n52hg9ske7fsuqs85m66g9phmdpaubtd', 1),
+(307, 1, 'n52hg9ske7fsuqs85m66g9phmdpaubtd', 1),
+(308, 1, 'n52hg9ske7fsuqs85m66g9phmdpaubtd', 1);
 
 -- --------------------------------------------------------
 
@@ -52,7 +56,7 @@ CREATE TABLE `catalog` (
   `name` varchar(65) NOT NULL COMMENT 'Наименование товара',
   `description` text NOT NULL COMMENT 'Описание товара',
   `price` text NOT NULL COMMENT 'Цена товара',
-  `image` text NOT NULL COMMENT 'Изображение товара'
+  `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT 'Изображение товара'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -133,18 +137,25 @@ CREATE TABLE `item_feedback` (
 
 CREATE TABLE `orders` (
   `id` int UNSIGNED NOT NULL COMMENT 'Идентификатор заказа',
+  `login` varchar(65) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'not_registered' COMMENT 'Логин пользователя',
   `name` varchar(64) NOT NULL COMMENT 'Имя пользователя',
   `number` text NOT NULL COMMENT 'Номер телефона пользователя',
   `mail` text NOT NULL COMMENT 'E-mail пользователя',
-  `session_id` text NOT NULL COMMENT 'Идентификатор сессии'
+  `session_id` text NOT NULL COMMENT 'Идентификатор сессии',
+  `date` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Дата и время заказа',
+  `order_status` int NOT NULL DEFAULT '1' COMMENT 'Статус заказа',
+  `total_amount` text NOT NULL COMMENT 'Сумма заказа'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`id`, `name`, `number`, `mail`, `session_id`) VALUES
-(14, 'asdf', 'sadf', 'sadf', 'll88mrnljkgpgnsq1ee1cejtg8rb5jv1');
+INSERT INTO `orders` (`id`, `login`, `name`, `number`, `mail`, `session_id`, `date`, `order_status`, `total_amount`) VALUES
+(34, 'nvs', 'Петров Василий Фёдорович', '79152341214', 'petrov_342@yandex.ru', '520der7t6kjs9jvt13v3grmj69s7ql91', '2021-05-14 04:21', 1, '25990'),
+(35, 'nvs', 'Петров Василий Фёдорович', '79152341214', 'petrov_342@yandex.ru', '520der7t6kjs9jvt13v3grmj69s7ql91', '2021-05-14 04:32', 1, '85990'),
+(36, 'not_registered', 'Volodya', '89998882211', 'volodya@vlds.vs', 'n52hg9ske7fsuqs85m66g9phmdpaubtd', '2021-05-16 21:05', 1, '63980'),
+(37, 'admin', 'Nevsen Frmg', '79663452417', 'email@email.com', 'n52hg9ske7fsuqs85m66g9phmdpaubtd', '2021-05-16 21:35', 1, '31990');
 
 -- --------------------------------------------------------
 
@@ -155,16 +166,21 @@ INSERT INTO `orders` (`id`, `name`, `number`, `mail`, `session_id`) VALUES
 CREATE TABLE `users` (
   `id` int UNSIGNED NOT NULL COMMENT 'Идентификатор пользователя',
   `login` varchar(65) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Имя/логин пользователя',
+  `full_name` text NOT NULL COMMENT 'Ф.И.О пользователя',
+  `phone` text NOT NULL COMMENT 'Телефон пользователя',
+  `email` text NOT NULL COMMENT 'Электронная почта пользователя',
   `password` text NOT NULL COMMENT 'Пароль пользователя',
-  `hash` text NOT NULL COMMENT 'Хэш пароля'
+  `hash` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT 'Хэш пароля',
+  `role` int UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Роль пользователя(1 - администратор. 0 - пользователь)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `password`, `hash`) VALUES
-(1, 'admin', '$2y$10$04rHAITNtzTMzjScmmsQC.A3vQvT6pwUFe.dX20fk5yw4PEezH3vK', '2066348783608ea98863fcb7.73348521');
+INSERT INTO `users` (`id`, `login`, `full_name`, `phone`, `email`, `password`, `hash`, `role`) VALUES
+(1, 'admin', 'Adminov Admin Adminovich', '79998887766', 'email@email.com', '$2y$10$04rHAITNtzTMzjScmmsQC.A3vQvT6pwUFe.dX20fk5yw4PEezH3vK', '2066348783608ea98863fcb7.73348521', 1),
+(2, 'petrov', 'Петров Василий Фёдорович', '78881112233', 'petrov_123@yandex.ru', '$2y$10$XpOJcKYZLF1Cr3J0Q8j71ekPt110IbRoBHil4CaDPc7USwT0iHlIO', NULL, 0);
 
 --
 -- Индексы сохранённых таблиц
@@ -220,13 +236,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=272;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog`
 --
 ALTER TABLE `catalog`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор товара', AUTO_INCREMENT=9;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор товара', AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `feedback`
@@ -250,13 +266,13 @@ ALTER TABLE `item_feedback`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор заказа', AUTO_INCREMENT=15;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор заказа', AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор пользователя', AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Идентификатор пользователя', AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

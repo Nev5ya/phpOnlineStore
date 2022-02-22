@@ -578,3 +578,52 @@ input[type="file"] {
 	font-weight: 400;
 	margin-bottom: 10px;
 }
+
+.orders-wrapper {
+	display: flex;
+	gap: 25px;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.order-item {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	border: 2px solid black;
+	padding: 10px;
+}
+
+.order-item_flex-start {
+	align-items: flex-start;
+}
+
+.order-item__text {
+	color: black;
+	font-size: 18px;
+	padding: 5px 0;
+	font-weight: 500;
+}
+
+.signUp {
+	margin-top: 15px;
+}
+
+.signUp_align {
+	align-self: center;
+}
+
+.signUp-errors {
+	color: red;
+}
+
+.signUp__button {
+	width: auto;
+}
+
+.order__buttons-wrapper {
+	display: flex;
+	margin-top: 10px;
+	justify-content: space-between;
+	gap: 20px;
+}

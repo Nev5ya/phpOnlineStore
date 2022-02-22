@@ -88,4 +88,4 @@ class Cart {
 let cart = new Cart();
 cart.init();
 
-//todo goods should add in to cart with backend only because need to synchronization with db
+//notice goods should add in to cart with backend only because need to synchronization with db
